@@ -1,27 +1,33 @@
-import java.util.*;
 import java.io.*;
-class hackerrank
+import java.util.Arrays;
+import java.math.*;
+class marcksCakewalk
 {
-	public static void main(String [] args)throws IOException
+	public static void main(String args[])throws IOException
 	{
 		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
 		int n=Integer.parseInt(br.readLine());
-		int m[]=new int[n];
 		String lines=br.readLine();
 		String[] strs=lines.trim().split("\\s+");
+		int c[]=new int[n];
 		for(int i=0;i<n;i++)
 		{
-			m[i]=Integer.parseInt(strs[i]);
+			c[i]=Integer.parseInt(strs[i]);
 		}
-		hackerrank obj=new hackerrank();
-		m=obj.mergeSort(m);
-		int min=Math.abs(m[0]-m[1]);
-		for(int i=0;i<n-1;i++)
+		BigInteger big=BigInteger.ZERO;
+		//System.out.println(big);
+		marcksCakewalk obj=new marcksCakewalk();
+		c=obj.mergeSort(c);
+		/*for(int i=0;i<c.length;i++)
+			System.out.println(c[i]);*/
+		int j=0;
+		for(int i=c.length-1;i>=0;i--)
 		{
-			if(Math.abs(m[i]-m[i+1])<min)
-				min=Math.abs(m[i]-m[i+1]);
+			big=big.add(BigInteger.valueOf((long)(c[i]*Math.pow(2,j))));
+			j++;
 		}
-		System.out.println(min);
+		System.out.println(big);
+
 	}
 	public int[] mergeSort(int [] a)
     {
