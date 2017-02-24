@@ -9,6 +9,7 @@ class mergeSortHugeNos
         BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
         System.out.println("Enter the number of elements in the array:");
         int n=Integer.parseInt(br.readLine());
+        //BigInteger big=n;
         BigInteger a[]=new BigInteger[n];
         System.out.println("Enter the elements on a single line seperated by space");
         //String  lines = br.readLine();    
