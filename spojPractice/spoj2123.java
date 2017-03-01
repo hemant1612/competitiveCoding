@@ -1,43 +1,39 @@
 import java.io.*;
-class spoj2123
+class spoj400
 {
-	//public int sum=0;
 	public static void main(String args[])throws IOException
 	{
 		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
 		int f=1;
-		spoj2123 obj=new spoj2123();
-		while(f==1)
+		while(f!=0)
 		{
-			int sum=0;
-			int n=Integer.parseInt(br.readLine());
-			if(n!=-1)
+			col=Integer.parseInt(br.readLine());
+			String s=br.readLine();
+			if(col!=0)
 			{
-				int m[]=new int[n];
-				for(int i=0;i<n;i++)
+				int row=s.length()/col;
+				char m[][]=new char[row][col];
+				for(int i=0;i<row;i++)
 				{
-					m[i]=Integer.parseInt(br.readLine());
-				}
-				for(int i=0;i<n;i++)
-					sum=sum+m[i];
-				//System.out.println();
-				//System.out.println(sum);
-				if(sum%n!=0)
-					System.out.println("-1");
-				else
-				{
-					int counter=0;
-					int mean=sum/n;
-					for(int i=0;i<n;i++)
+					int j;
+					for(j=0;j<col;j++)
 					{
-						if(m[i]<mean)
-							counter=counter+mean-m[i];
+						m[i][j]=s.charAt(j);
 					}
-					System.out.println(counter);
+					s=s.substring(j,s.length());
 				}
+				for(int i=0;i<col;i++)
+				{
+					for(int j=0;j<row;j++)
+					{
+						System.out.print(m[i][j]);
+					}
+				}
+				System.out.println();
 			}
 			else
 				f=0;
 		}
+		
 	}
 }
