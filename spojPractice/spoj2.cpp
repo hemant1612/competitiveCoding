@@ -1,6 +1,40 @@
 #include <iostream>
 #include <math.h>
 using namespace std;
+int* primeG(int sqn)
+{
+	int *m;
+	m=new int[sqn];
+	for(int i=0;i<sqn;i++)
+		m[i]=1;
+	int sqqn=(int)(floor(sqrt(sqn)));
+	int counter=0;
+	for(int i=2;i<=sqqn;i++)
+	{
+		int count=0;
+		if(m[i]==1)
+		{
+			for(int j=i*i;j<sqn;j=i*i+count*i)
+			{
+				m[i]=0;
+				count++;
+				counter++;
+			}
+		}
+	}
+	int *prime;
+	int count=0;
+	prime=new int[counter];
+	for(int i=0;i<sqn;i++)
+	{
+		if(m[i]==1)
+		{
+			prime[count]=i;
+			count++;
+		}
+	}
+	return prime;
+}
 int main()
 {
 	int t;
@@ -9,40 +43,30 @@ int main()
 	{
 		int m,n;
 		cin>>m>>n;
-		int sqn=(int)sqrt(n);
-		int *p;
-		p=new int[(long)ceil(double(sqrt(n)))];
-		for(int i=0;i<(int)sqrt(n);i++)
-			cout<<p[i]<<endl;
-	}
-}
-int* primeG(int n)
-{
-	int *m;
-	m=new int[n];
-	for(int i=0;i<n;i++)
-		m[i]=1;
-	for(int i=2;i<=sqrt(n);i++)
-	{
-		int counter=0;
-		if(m[i]==1)
+		int sqn=(int)(floor(sqrt(n+1)));
+		int *a;
+		a=primeG(sqn);
+		int *array;
+		int count=0;
+		array=new int[n+1];
+		for(int i=0;i<=n;i++)
+			array[i]=1;
+		for(int i=m;i<=n;i++)
 		{
-			for(int j=i*i;j<n;j=i*i+counter*i)
+			int k=(int)(floor(i/a[count]));
+			int k1=k*a[count];
+			int counter=0;
+			for(int j=k1;j<=n;j=j+counter*a[count])
 			{
-				m[j]=0;
+				array[j]=0;
 				counter++;
 			}
+			count++;
 		}
-	}
-	int *prime;
-	prime=new int[(long)ceil(double(sqrt(n)))];
-	int count=0;
-	for(int i=2;i<=sqrt(n);i++)
-	{
-		if(m[i]==true)
+		for(int i=m;i<=n;i++)
 		{
-			prime[count++]=i;
+			if(array[i]==1)
+				cout<<i<<endl;
 		}
 	}
-	return prime;
 }
