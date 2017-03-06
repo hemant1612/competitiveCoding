@@ -1,25 +1,17 @@
 #include <iostream>
 #include <string>
-#include <math.h>
+#include <algorithm>
 using namespace std;
-int isPalindrome(int n)
+bool isPalin(long long int n)
 {
 	string s=to_string(n);
-	int f=1;
-	for(int i=0;i<(int)(floor(s.length()/2));i++)
-	{
-		char c1=s.at(i);
-		char c2=s.at(n-i-1);
-		if(c1!=c2)
-		{
-			f=0;
-			break;
-		}
-	}
-	if(f==1)
-		return 1;
+	string s1=s;
+	reverse(s1.begin(),s1.end());
+	//cout<<s<<" "<<s1<<endl;
+	if(s==s1)
+		return true;
 	else
-		return 0;
+		return false;
 }
 int main()
 {
@@ -27,18 +19,20 @@ int main()
 	cin>>t;
 	while(t--)
 	{
-		long n;
+		long long int n;
 		cin>>n;
-		int f=1;
-		while(f==1)
+		int f=0;
+		n++;
+		while(f==0)
 		{
-			int ans=isPalindrome(++n);
-			if(ans==1)
+			bool check=isPalin(n);
+			if(check)
 			{
-				cout<<n;
-				f=0;
+				f=1;
+				cout<<n<<endl;
 				break;
 			}
+			n++;
 		}
 	}
 }

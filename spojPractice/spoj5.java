@@ -1,45 +1,40 @@
 import java.io.*;
+import java.math.*;
 class spoj5
 {
 	public static void main(String args[])throws IOException
 	{
+		spoj5 obj=new spoj5();
 		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
 		int t=Integer.parseInt(br.readLine());
-		spoj5 obj=new spoj5();
 		while(t--!=0)
 		{
-			int n=Integer.parseInt(br.readLine());
-			int f=1;
-			while(f==1)
+			BigInteger n=new BigInteger(br.readLine());
+			//int n=Integer.parseInt(br.readLine());
+			int f=0;
+			n=n.add(BigInteger.valueOf(1));
+			while(f==0)
 			{
-				int ans=obj.isPalindrome(++n);
-				if(ans==1)
+				boolean check=obj.isPrime(n);
+				if(check)
 				{
+					f=1;
 					System.out.println(n);
-					f=0;
 					break;
 				}
+				n=n.add(BigInteger.valueOf(1));
 			}
-
 		}
 	}
-	int isPalindrome(int n)
+	boolean isPrime(BigInteger n)
 	{
-		String s=Integer.toString(n);
-		int f=1;
-		for(int i=0;i<(int)Math.floor(n/2);i++)
-		{
-			char c1=s.charAt(i);
-			char c2=s.charAt(n-i-1);
-			if(c1!=c2)
-			{
-				f=0;
-				break;
-			}
-		}
-		if(f==1)
-			return 1;
+		String s=n.toString();
+		String s1=new StringBuffer(s).reverse().toString();
+		//System.out.println(s);
+		//System.out.println(s1);
+		if(s.equals(s1))
+			return true;
 		else
-			return 0;
+			return false;
 	}
 }

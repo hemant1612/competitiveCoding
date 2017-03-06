@@ -46,31 +46,31 @@ class spoj2157
 			//System.out.println(d);
 			if(d==1)
 			{
-				BigInteger n2=new BigInteger(s2);
+				int n2=Integer.parseInt(s2);
 				//int n2=Integer.parseInt(s2);
-				BigInteger n3=new BigInteger(s3);
+				int n3=Integer.parseInt(s3);
 				//int n3=Integer.parseInt(s3);;
 				
-				BigInteger n1=n3.subtract(n2);
+				int n1=n3-n2;
 				System.out.println(n1+" + "+n2+" = "+n3);
 			}
 			else if(d==2)
 			{
-				BigInteger n1=new BigInteger(s1);
+				int n1=Integer.parseInt(s1);
 				
-				BigInteger n3=new BigInteger(s3);;
+				int n3=Integer.parseInt(s3);;
 				
-				BigInteger  n2=n3.subtract(n1);
+				int  n2=n3-n1;
 				System.out.println(n1+" + "+n2+" = "+n3);
 				
 			}
 			else
 			{
-				BigInteger n1=new BigInteger(s1);
+				int n1=Integer.parseInt(s1);
 				
-				BigInteger n2=new BigInteger(s2);
+				int n2=Integer.parseInt(s2);
 				
-				BigInteger n3=n2.add(n1);
+				int n3=n2+n1;
 				System.out.println(n1+" + "+n2+" = "+n3);
 			}
 		}

@@ -14,7 +14,7 @@ class codeforces1a
 		double n=c[1];
 		double m=c[0];
 		double a=c[2];
-		int ans=(int)(Math.ceil(n/a)*Math.ceil(m/a));
+		long ans=(long)(Math.ceil(n/a)*Math.ceil(m/a));
 		System.out.println(ans);
 	}	
 }
