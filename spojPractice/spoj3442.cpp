@@ -6,10 +6,10 @@ int main()
 	cin>>t;
 	for(int q=1;q<=t;q++)
 	{
-		int a,b;
+		long long int a,b;
 		cin>>a>>b;
 		a=a%10;
-		//cout<<a<<" a"<<endl;
+		//cout<<a<<" a"<<endl;b==
 		if(b!=0)
 		{
 			b=b%4;

@@ -10,7 +10,7 @@ class spoj2157
 		while(t!=0)
 		{
 			t--;
-			System.out.println();
+			String ss=br.readLine();
 			String s=br.readLine();
 			int cp=0;
 			int ce=0;
