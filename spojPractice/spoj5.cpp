@@ -6,12 +6,10 @@ bool isPalin(long long int n)
 {
 	string s=to_string(n);
 	string s1=s;
-	reverse(s1.begin(),s1.end());
-	//cout<<s<<" "<<s1<<endl;
+	reverse(s.begin(),s.end());
 	if(s==s1)
 		return true;
-	else
-		return false;
+	return false;
 }
 int main()
 {
@@ -21,18 +19,21 @@ int main()
 	{
 		long long int n;
 		cin>>n;
-		int f=0;
 		n++;
-		while(f==0)
+		long long int f=1;
+		while(f==1)
 		{
-			bool check=isPalin(n);
-			if(check)
+			bool ans=isPalin(n);
+			if(ans==true)
 			{
-				f=1;
 				cout<<n<<endl;
+				f=0;
 				break;
 			}
-			n++;
+			else
+			{
+				n++;
+			}
 		}
 	}
 }
