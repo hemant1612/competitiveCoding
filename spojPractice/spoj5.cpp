@@ -5,16 +5,25 @@ using namespace std;
 bool isPalin(long long int n)
 {
 	string s=to_string(n);
-	string s1=s;
-	reverse(s.begin(),s.end());
-	if(s==s1)
+	int f=1;
+	int length=s.length();
+	for(int i=0;i<length/2;i++)
+	{
+		if(s.at(i)!=s.at(length-1-i))
+		{
+			f=0;
+			break;
+		}
+	}
+	if(f==0)
+		return false;
+	else
 		return true;
-	return false;
 }
 int main()
 {
 	int t;
-	cin>>t;
+	scanf("%d",&t);
 	while(t--)
 	{
 		long long int n;
