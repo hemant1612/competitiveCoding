@@ -19,17 +19,40 @@ int main()
 {
 	ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-	int n;
+	lli n;
 	cin>>n;
-	int a[n];
-	int sum1=0,sum2=0;
+	lli a[n];
 	REP(i,n)
+		cin>>a[i];
+	lli i=1;
+	int p=1;
+	while(1)
 	{
-		int x;
-		cin>>x;
-		if(i<n/2)
-			sum1+=x;
-		else sum2+=x;
+		priority_queue<int> q;
+		int flag=0;
+		while(i>=pow(2,p-1)&&i<pow(2,p))
+		{
+			int f=1;
+			REP(j,n)
+			{
+				if((a[j]&i)==0)
+				{
+					f=0;
+					break;
+				}
+			}
+			if(f==1)
+			{
+				q.push(-1*i);
+				flag=1;
+			}
+			i++;
+		}
+		if(flag==1)
+		{
+			cout<<-1*q.top()<<"\n";
+			break;
+		}
+		else p++;
 	}
-	cout<<max(sum1,sum2)-min(sum2,sum1)<<endl;
 }

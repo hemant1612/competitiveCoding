@@ -19,17 +19,24 @@ int main()
 {
 	ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-	int n;
-	cin>>n;
+	int n,m;
+	cin>>n>>m;
 	int a[n];
-	int sum1=0,sum2=0;
 	REP(i,n)
+		cin>>a[i];
+	while(m--)
 	{
-		int x;
-		cin>>x;
-		if(i<n/2)
-			sum1+=x;
-		else sum2+=x;
+		int l,r,x;
+		cin>>l>>r>>x;
+		l--;r--;x--;
+		int counter=0;
+		FOR(i,l,r)
+		{
+			if(a[i]<a[x])
+				counter++;
+		}
+		if(l+counter==x)
+			cout<<"Yes"<<endl;
+		else cout<<"No"<<endl;
 	}
-	cout<<max(sum1,sum2)-min(sum2,sum1)<<endl;
 }

@@ -19,17 +19,10 @@ int main()
 {
 	ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-	int n;
-	cin>>n;
-	int a[n];
-	int sum1=0,sum2=0;
-	REP(i,n)
+	/*int t;
+	cin>>t;
+	while(t--)
 	{
-		int x;
-		cin>>x;
-		if(i<n/2)
-			sum1+=x;
-		else sum2+=x;
-	}
-	cout<<max(sum1,sum2)-min(sum2,sum1)<<endl;
+
+	}*/
 }

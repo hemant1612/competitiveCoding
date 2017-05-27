@@ -19,17 +19,24 @@ int main()
 {
 	ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-	int n;
-	cin>>n;
-	int a[n];
-	int sum1=0,sum2=0;
-	REP(i,n)
+	string s;
+	cin>>s;
+	lli k,b,m;
+	cin>>k>>b>>m;
+	lli length=s.length();
+	lli ans=0;
+	FOR(i,0,length-k)
 	{
-		int x;
-		cin>>x;
-		if(i<n/2)
-			sum1+=x;
-		else sum2+=x;
+		string s1=s.substr(i,k);
+		lli p=0;
+		lli value=0;
+		FORD(j,k-1,0)
+		{
+			lli x=(s1.at(j)-'0')*pow(b,p);
+			p++;
+			value+=x;
+		}
+		ans+=value%m;
 	}
-	cout<<max(sum1,sum2)-min(sum2,sum1)<<endl;
+	cout<<ans<<endl;
 }

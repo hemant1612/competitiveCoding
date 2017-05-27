@@ -17,19 +17,26 @@ using namespace std;
 #define INF INT_MAX //Infinity
 int main()
 {
-	ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-	int n;
-	cin>>n;
-	int a[n];
-	int sum1=0,sum2=0;
-	REP(i,n)
+	int n1,n2,n3;
+	cin>>n1>>n2>>n3;
+	map<int,int> m;
+	REP(i,n1+n2+n3)
 	{
 		int x;
 		cin>>x;
-		if(i<n/2)
-			sum1+=x;
-		else sum2+=x;
+		m[x]++;
 	}
-	cout<<max(sum1,sum2)-min(sum2,sum1)<<endl;
+	int counter=0;
+	vector<int> v;
+	for(auto x : m)
+	{
+		if(x.second>=2)
+		{
+			counter++;
+			v.push_back(x.first);
+		}
+	}
+	cout<<counter<<endl;
+	REP(i,v.size())
+		cout<<v[i]<<endl;
 }
