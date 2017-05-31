@@ -57,6 +57,12 @@ void codeforces416B_B()
 		else cout<<"No"<<endl;
 	}
 }
+
+/*
+	If you have x. Suppose you want x to have values 4 and 7 in a for loop condition
+	You shouldn't write if(x!=4||x!=7) f=0 break; as when x=7 it breaks
+	Instead you should have if(x==4||x==7) continue else f=0 break
+*/
 int main()
 {
 	ios_base::sync_with_stdio(false);

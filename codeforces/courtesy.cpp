@@ -19,10 +19,36 @@ int main()
 {
 	ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-	/*int t;
-	cin>>t;
-	while(t--)
+	int a,b;
+	cin>>a>>b;
+	int i=1;
+	while(1)
 	{
-
-	}*/
+		if(i%2==1)
+		{
+			if(a-i>=0)
+			{
+				a=a-i;
+				i++;
+			}
+			else
+			{
+				cout<<"Vladik\n";
+				break;
+			}
+		}
+		else
+		{
+			if(b-i>=0)
+			{
+				b=b-i;
+				i++;
+			}
+			else
+			{
+				cout<<"Valera\n";
+				break;
+			}
+		}
+	}
 }
