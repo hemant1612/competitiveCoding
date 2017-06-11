@@ -30,6 +30,7 @@ using namespace std;
 #define vii vector<pair<int,int>>
 #define viii vector<tuple<int,int,int>>
 #define mii map<int,int>
+#define sortv(v) sort(v.begin(),v.end());
 ulli poW(lli x,ulli y)
 {
 	//this function only returns correct values upto the order of ~10^18
@@ -42,15 +43,16 @@ ulli poW(lli x,ulli y)
 		return temp*temp;
 	else return x*temp*temp;
 }
- 
-int bSearch(int low,int high,vector<pair<lli,lli>> v,lli sh)
+
+int bSearch(int low,int high,int a[],int sh)
 {
+	//function for searching till where is a sh<=
 	while(low<high)
 	{
 		int mid=low+(high-low+1)/2;
-		if(v[mid].fi>sh)
+		if(a[mid]>sh)
 			high=mid-1;
-		if(v[mid].fi<=sh)
+		if(a[mid]<=sh)
 			low=mid;
 	}
 	return low;
@@ -59,47 +61,18 @@ int main()
 {
 	ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-	int t;
-	cin>>t;
-	while(t--)
+	lli n,k;
+	cin>>n>>k;
+	lli max=-1*INF;
+	REP(i,n)
 	{
-		int p,q,r;
-		cin>>p>>q>>r;
-		vector<pair<lli,lli>> vx;
-		vector<pair<lli,lli>> vz;
-		lli y[q];
-		REP(i,p)
-		{
-			lli x;
-			cin>>x;
-			vx.pb(mp(x,0));
-		}
-		REP(i,q) cin>>y[i];
-		REP(i,r)
-		{
-			lli z;
-			cin>>z;
-			vz.pb(mp(z,0));
-		}
-		sort(vx.begin(),vx.end());
-		vx[0].se=vx[0].fi;
-		FOR(i,1,p-1)
-			vx[i].se=vx[i].fi+vx[i-1].se;
-		sort(vz.begin(),vz.end());
-		vz[0].se=vz[0].fi;
-		FOR(i,1,r-1)
-			vz[i].se=vz[i].fi+vz[i-1].se;
-		sort(y,y+q);
-		lli ans=0;
-		REP(i,q)
-		{
-			int xpointer=bSearch(0,p-1,vx,y[i]);
-			int zpointer=bSearch(0,r-1,vz,y[i]);
-			lli xy=((zpointer+1)%MOD*y[i]%MOD*vx[xpointer].se%MOD)%MOD;
-			lli yz=((xpointer+1)%MOD*y[i]%MOD*vz[zpointer].se%MOD)%MOD;
-			lli xz=(vx[xpointer].se%MOD*vz[zpointer].se%MOD)%MOD;
-			ans+=(xy+yz+xz+(y[i]%MOD*y[i]%MOD*((xpointer+1)%MOD*(zpointer+1)%MOD)%MOD)%MOD)%MOD;
-		}
-		cout<<ans%MOD<<endl;
+		lli x,y,joy;
+		cin>>x>>y;
+		if(y>k)
+			joy=x-(y-k);
+		else joy=x;
+		if(joy>max)
+			max=joy;
 	}
-} 
+	cout<<max<<endl;
+}
