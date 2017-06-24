@@ -59,6 +59,7 @@ int bSearch(int low,int high,int a[],int sh)
 
 ulli modular_pow(ulli b,ulli e,ulli m)
 {
+	//returns (b^e)%m
 	if(e==0)
 		return 1;
 	if(e==1)
@@ -81,19 +82,9 @@ ulli modular_pow(ulli b,ulli e,ulli m)
 int main()
 {
     fio;
-	int n;
+	lli n;
 	cin>>n;
-	string s;
-	cin>>s;
-	int counter=0;
-	FOR(i,1,s.length()-1)
-	{
-		if(s.at(i)==s.at(i-1))
-		{
-			s=s.substr(0,i)+s.substr(i+1,s.length()-(i+1));
-			counter++;
-			i--;
-		}
-	}
-	cout<<counter<<endl;
+	ulli mid=modular_pow(3,n,MOD-1);
+	ulli ans=modular_pow(3,mid,MOD);
+	cout<<ans<<endl;
 }

@@ -1,7 +1,5 @@
 #include <bits/stdc++.h>
-typedef long long int lli;
-typedef unsigned long long int ulli;
-using namespace std;
+
 #define REP(i,n) for(int i=0;i<(n);i++)
 #define FOR(i,a,b) for(int i=(a);i<=(b);i++)
 #define FORD(i,a,b) for(int i=(a);i>=(b);i--)
@@ -16,13 +14,22 @@ using namespace std;
 #define MOD 1000000007
 #define fi first
 #define se second
-#define vi vector<int>
-#define ii pair<int,int>
-#define vii vector<pair<int,int>>
-#define viii vector<tuple<int,int,int>>
-#define mii map<int,int>
+
+typedef long long int lli;
+typedef unsigned long long int ulli;
+#define ii pair<int,int>;
+#define vi vector<int>;
+#define vii vector<ii>;
+#define vi64 vector<lli>;
+#define ld double;
+#define viii vector<tuple<int,int,int>>;
+#define mii map<int,int>;
+
 #define fio ios_base::sync_with_stdio(false); cin.tie(NULL);
 #define nl "\n"
+
+using namespace std;
+
 ulli poW(lli x,ulli y)
 {
 	//this function only returns correct values upto the order of ~10^18
@@ -50,14 +57,25 @@ int bSearch(int low,int high,int a[],int sh)
 	return low;
 }
 
-lli modular_pow(lli b,lli e,lli m)
+ulli modular_pow(ulli b,ulli e,ulli m)
 {
-	if (m==1)
-		return 0;
-	lli c=1;
-	for(int e_prime=1;e_prime<=e;e_prime++)
-		c=(c*b)%m;
-	return c;
+	if(e==0)
+		return 1;
+	if(e==1)
+		return b;
+	else
+	{
+		ulli res=1;
+		b=b%m;
+		while(e>0)
+		{
+			if(e&1) //e%2
+				res=(res*b)%m;
+			e=e>>1;
+			b=(b*b)%m;
+		}
+		return res%m;
+	}
 }
 
 int main()
@@ -65,5 +83,7 @@ int main()
     fio;
 	lli n;
 	cin>>n;
-	cout<<modular_pow(3,poW(3,n),MOD)<<nl;
+	ulli mid=modular_pow(3,n,MOD-1);
+	ulli ans=modular_pow(3,mid,MOD);
+	cout<<ans<<endl;
 }

@@ -14,19 +14,18 @@
 #define MOD 1000000007
 #define fi first
 #define se second
+#define ii pair<int,int>
+#define vi vector<int>
+#define vii vector<ii>
+#define vi64 vector<lli>
+#define viii vector<tuple<int,int,int>>
+#define mii map<int,int>
+#define fio ios_base::sync_with_stdio(false); cin.tie(NULL);
+#define nl "\n"
 
 typedef long long int lli;
 typedef unsigned long long int ulli;
-#define ii pair<int,int>;
-#define vi vector<int>;
-#define vii vector<ii>;
-#define vi64 vector<lli>;
-#define ld double;
-#define viii vector<tuple<int,int,int>>;
-#define mii map<int,int>;
-
-#define fio ios_base::sync_with_stdio(false); cin.tie(NULL);
-#define nl "\n"
+typedef double ld;
 
 using namespace std;
 
@@ -78,22 +77,54 @@ ulli modular_pow(ulli b,ulli e,ulli m)
 	}
 }
 
+vector<string> split_string(string sentence)
+{
+	istringstream iss(sentence);
+	vector<string> tokens{istream_iterator<string>{iss},
+                      istream_iterator<string>{}};
+    return tokens;
+}
+
 int main()
 {
-    fio;
-	int n;
-	cin>>n;
-	string s;
-	cin>>s;
-	int counter=0;
-	FOR(i,1,s.length()-1)
+	int t;
+	cin>>t;
+	while(t--)
 	{
-		if(s.at(i)==s.at(i-1))
+		string blank;
+		cin.ignore();
+		getline(cin,blank);
+		cin.ignore();
+		string expression;
+		getline(cin,expression);
+		cout<<expression<<endl;
+		vector<string> v=split_string(expression);
+		cout<<"size "<<v.size()<<endl;
+		REP(i,v.size())
+			cout<<v[i]<<endl;
+		/*int n=0,p=0;
+		REP(i,expression.length())
 		{
-			s=s.substr(0,i)+s.substr(i+1,s.length()-(i+1));
-			counter++;
-			i--;
-		}
+			char c=s.at(i);
+			if(c=='+')
+
+			else if(c=='-')
+
+			else if(c=='*')
+
+			else if(c=='/')
+
+			else if(c==' ')
+			{
+				continue;
+			}
+			else if(c=='=')
+				break;
+			else
+			{
+				n=n+(c-'0')*poW(10,p);
+				p++;
+			}
+		}*/
 	}
-	cout<<counter<<endl;
 }

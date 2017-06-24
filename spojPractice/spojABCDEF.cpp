@@ -14,19 +14,18 @@
 #define MOD 1000000007
 #define fi first
 #define se second
+#define ii pair<int,int>
+#define vi vector<int>
+#define vii vector<ii>
+#define vi64 vector<lli>
+#define viii vector<tuple<int,int,int>>
+#define mii map<int,int>
+#define fio ios_base::sync_with_stdio(false); cin.tie(NULL);
+#define nl "\n"
 
 typedef long long int lli;
 typedef unsigned long long int ulli;
-#define ii pair<int,int>;
-#define vi vector<int>;
-#define vii vector<ii>;
-#define vi64 vector<lli>;
-#define ld double;
-#define viii vector<tuple<int,int,int>>;
-#define mii map<int,int>;
-
-#define fio ios_base::sync_with_stdio(false); cin.tie(NULL);
-#define nl "\n"
+typedef double ld;
 
 using namespace std;
 
@@ -78,22 +77,70 @@ ulli modular_pow(ulli b,ulli e,ulli m)
 	}
 }
 
+bool binarySearch(lli low,lli high,lli sh,vector<lli> v)
+{
+	if(low<=high)
+	{
+		int mid=low+(high-low)/2;
+		if(v[mid]==sh)
+			return true;
+		if(v[mid]>sh)
+			high=mid-1;
+		if(v[mid]<sh)
+			low=mid+1;
+	}
+	return false;
+}
+
 int main()
 {
-    fio;
-	int n;
-	cin>>n;
-	string s;
-	cin>>s;
-	int counter=0;
-	FOR(i,1,s.length()-1)
+	/*int t;
+	cin>>t;
+	while(t--)
 	{
-		if(s.at(i)==s.at(i-1))
+		int n;
+		cin>>n;
+	}*/
+	fio;
+	int n;
+	scanf("%d",&n);
+	vi v;
+	REP(i,n)
+	{
+		int x;
+		cin>>x;
+		v.pb(x);
+	}
+	multiset<lli> s;
+	int vsize=v.size();
+	REP(a,vsize)
+	{
+		REP(b,vsize)
 		{
-			s=s.substr(0,i)+s.substr(i+1,s.length()-(i+1));
-			counter++;
-			i--;
+			REP(c,vsize)
+			{
+				s.insert(v[a]*v[b]+v[c]);
+			}
 		}
 	}
-	cout<<counter<<endl;
+	vi64 v1;
+	REP(e,vsize)
+	{
+		REP(f,vsize)
+		{
+			REP(d,vsize)
+			{
+				if(v[d]==0)
+					continue;
+				v1.pb(v[d]*(v[f]+v[e]));
+			}
+		}
+	}
+	int vsize1=v1.size();
+	int counter=0;
+	REP(i,vsize1)
+	{
+		counter+=s.count(v1[i]);
+	}
+	printf("%d\n",counter );
 }

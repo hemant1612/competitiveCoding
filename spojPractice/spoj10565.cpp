@@ -14,19 +14,18 @@
 #define MOD 1000000007
 #define fi first
 #define se second
+#define ii pair<int,int>
+#define vi vector<int>
+#define vii vector<ii>
+#define vi64 vector<lli>
+#define viii vector<tuple<int,int,int>>
+#define mii map<int,int>
+#define fio ios_base::sync_with_stdio(false); cin.tie(NULL);
+#define nl "\n"
 
 typedef long long int lli;
 typedef unsigned long long int ulli;
-#define ii pair<int,int>;
-#define vi vector<int>;
-#define vii vector<ii>;
-#define vi64 vector<lli>;
-#define ld double;
-#define viii vector<tuple<int,int,int>>;
-#define mii map<int,int>;
-
-#define fio ios_base::sync_with_stdio(false); cin.tie(NULL);
-#define nl "\n"
+typedef double ld;
 
 using namespace std;
 
@@ -80,20 +79,14 @@ ulli modular_pow(ulli b,ulli e,ulli m)
 
 int main()
 {
-    fio;
-	int n;
-	cin>>n;
-	string s;
-	cin>>s;
-	int counter=0;
-	FOR(i,1,s.length()-1)
+	int t;
+	cin>>t;
+	while(t--)
 	{
-		if(s.at(i)==s.at(i-1))
-		{
-			s=s.substr(0,i)+s.substr(i+1,s.length()-(i+1));
-			counter++;
-			i--;
-		}
+		int n;
+		cin>>n;
+		if(n%2==0)
+			cout<<n/2<<endl;
+		else cout<<(n+1)/2<<endl;
 	}
-	cout<<counter<<endl;
 }

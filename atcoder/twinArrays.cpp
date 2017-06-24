@@ -14,19 +14,18 @@
 #define MOD 1000000007
 #define fi first
 #define se second
+#define ii pair<int,int>
+#define vi vector<int>
+#define vii vector<ii>
+#define vi64 vector<lli>
+#define viii vector<tuple<int,int,int>>
+#define mii map<int,int>
+#define fio ios_base::sync_with_stdio(false); cin.tie(NULL);
+#define nl "\n"
 
 typedef long long int lli;
 typedef unsigned long long int ulli;
-#define ii pair<int,int>;
-#define vi vector<int>;
-#define vii vector<ii>;
-#define vi64 vector<lli>;
-#define ld double;
-#define viii vector<tuple<int,int,int>>;
-#define mii map<int,int>;
-
-#define fio ios_base::sync_with_stdio(false); cin.tie(NULL);
-#define nl "\n"
+typedef double ld;
 
 using namespace std;
 
@@ -80,20 +79,34 @@ ulli modular_pow(ulli b,ulli e,ulli m)
 
 int main()
 {
-    fio;
+	/*int t;
+	cin>>t;
+	while(t--)
+	{
+		int n;
+		cin>>n;
+	}*/
 	int n;
 	cin>>n;
-	string s;
-	cin>>s;
-	int counter=0;
-	FOR(i,1,s.length()-1)
+	vii v1,v2;
+	REP(i,n)
 	{
-		if(s.at(i)==s.at(i-1))
-		{
-			s=s.substr(0,i)+s.substr(i+1,s.length()-(i+1));
-			counter++;
-			i--;
-		}
+		int x;
+		cin>>x;
+		v1.pb(mp(x,i));
 	}
-	cout<<counter<<endl;
+	REP(i,n)
+	{
+		int x;
+		cin>>x;
+		v2.pb(mp(x,i));
+	}
+	sortv(v1);
+	sortv(v2);
+	if(v1[0].se!=v2[0].se)
+		cout<<v1[0].fi+v2[0].fi<<endl;
+	else
+	{
+		cout<<min(v1[0].fi+v2[1].fi,v1[1].fi+v2[0].fi)<<endl;
+	}
 }

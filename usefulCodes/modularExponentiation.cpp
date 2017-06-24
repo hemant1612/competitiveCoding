@@ -1,24 +1,36 @@
 #include <iostream>
-typedef long long int lli;
+typedef unsigned long long int ulli;
 using namespace std;
 /*	this  funciton takes in 3 parameters b (base) e (exponent) m (modulus)
 	and returns (b^e)%m
 */
 
-lli modular_pow(lli b,lli e,lli m)
+ulli modular_pow(ulli b,ulli e,ulli m)
 {
-	if (m==1)
-		return 0;
-	lli c=1;
-	for(int e_prime=1;e_prime<=e;e_prime++)
-		c=(c*b)%m;
-	return c;
+	if(e==0)
+		return 1;
+	if(e==1)
+		return b;
+	else
+	{
+		ulli res=1;
+		b=b%m;
+		while(e>0)
+		{
+			if(e&1) //e%2
+				res=(res*b)%m;
+			e=e>>1;
+			b=(b*b)%m;
+		}
+		return res%m;
+	}
 }
+
 int main()
 {
-	lli b,e,m;
+	ulli b,e,m;
 	cin>>b>>e>>m;
-	lli ans=modular_pow(b,e,m);
+	ulli ans=modular_pow(b,e,m);
 	cout<<ans<<endl;
 	return 0;
 }
