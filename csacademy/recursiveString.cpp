@@ -8,10 +8,6 @@
 #define sorta(a,n) sort(a,a+n);
 #define arrayin(a,n) for(int i=0;i<n;i++) cin>>a[i];
 #define arrayout(a,n) for(int i=0;i<n;i++) cout<<" ";cout<<"\n";
-#define whatIs(x) cout<<#x<<" is "<<x<<endl;
-#define fillA(a,value) memset(a,value,sizeof(a));
-#define len(s) s.length()
-#define reached cout<<"reached "<<endl;
 #define INF INT_MAX //Infinity
 #define mp make_pair
 #define pb push_back
@@ -29,7 +25,6 @@
 #define msi multiset<int>
 #define nl "\n"
 #define sii set<int,int>
-#define sz size
 
 typedef long long int lli;
 typedef unsigned long long int ulli;
@@ -37,34 +32,78 @@ typedef double ld;
 
 using namespace std;
 
-int isNumber(string n)
+int size[36];
+
+void f(lli n,lli k)
 {
-	REP(i,len(n))
+	if(n==0)
 	{
-		if(isalpha(n[i])) return 0;
+		cout<<"a"<<endl;
+		return;
 	}
-	return 1;
+	else if(n==1)
+	{
+		cout<<"b"<<endl;
+		return;
+	}
+	else if(n==2)
+	{
+		cout<<"c"<<endl;
+		return;
+	}
+	n--;
+	lli sz=size[n];
+	if(k<=sz)
+	{
+		//cout<<"f "<<" n "<<n<<" k "<<k<<" sz "<<sz<<endl;
+		f(n,k);
+	}
+	else
+	{
+		k-=sz;
+		n--;
+		sz=size[n];
+		if(k<=sz)
+		{
+			//cout<<"f "<<" n "<<n<<" k "<<k<<" sz "<<sz<<endl;
+			f(n,k);
+		}
+		else
+		{
+			k-=sz;
+			n--;
+			//cout<<"f "<<" n "<<n<<" k "<<k<<" sz "<<sz<<endl;
+			f(n,k);
+		}
+	}
 }
 
 int main()
 {
 	fio;
-	int t;
+	/*int t;
 	cin>>t;
 	while(t--)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		int n;
+		cin>>n;
+	}*/
+	size[0]=1;
+	size[1]=1;
+	size[2]=1;
+	FOR(i,3,35)
+	{
+		size[i]=size[i-1]+size[i-2]+size[i-3];
 	}
-
+	lli n,k;
+	cin>>n>>k;
+	//k--;
+	int sz=size[n];
+	if(k<=sz)
+	{
+		//cout<<"f "<<" n "<<n<<" k "<<k<<" sz "<<sz<<endl;
+		f(n,k);
+	}
+	else cout<<"-1"<<endl;
 	return 0;
 }

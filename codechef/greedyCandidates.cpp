@@ -37,15 +37,6 @@ typedef double ld;
 
 using namespace std;
 
-int isNumber(string n)
-{
-	REP(i,len(n))
-	{
-		if(isalpha(n[i])) return 0;
-	}
-	return 1;
-}
-
 int main()
 {
 	fio;
@@ -53,17 +44,66 @@ int main()
 	cin>>t;
 	while(t--)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		int n,m;
+		cin>>n>>m;
+		lli minSalary[n];
+		REP(i,n) cin>>minSalary[i];
+		lli offeredSalary[m];
+		int maxJobOffers[m];
+		int check[m];
+		REP(i,m)
+		{
+			cin>>offeredSalary[i]>>maxJobOffers[i];
+			check[i]=maxJobOffers[i];
+		}
+		int qual[n][m];
+		REP(i,n)
+		{
+			REP(j,m)
+			{
+				char c;
+				cin>>c;
+				qual[i][j]=c-'0';
+			}	
+		}
+		lli total=0,offers=0;
+		REP(i,n)
+		{
+			//whatIs(i)
+			lli salary=0;
+			int job=-1;
+			REP(j,m)
+			{
+				if(qual[i][j]==1)
+				{
+					
+					if(offeredSalary[j]>=minSalary[i]&&maxJobOffers[j]>0)
+					{
+						if(offeredSalary[j]>=salary)
+						{
+							//reached
+							job=j;
+							salary=offeredSalary[j];
+						}
+					}
+				}
+			}
+			//whatIs(job)
+			if(job!=-1)
+			{
+				maxJobOffers[job]--;
+				total+=salary;
+				offers++;
+				//whatIs(total)
+				//whatIs(offers)
+			}
+		}
+		lli leftovers=0;
+		REP(i,m)
+		{
+			if(check[i]==maxJobOffers[i]) leftovers++;
+		}
+		cout<<offers<<" "<<total<<" "<<leftovers<<endl;
 	}
 
 	return 0;

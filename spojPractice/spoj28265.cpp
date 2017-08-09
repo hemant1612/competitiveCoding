@@ -22,7 +22,8 @@
 #define viii vector<tuple<int,int,int>>
 #define prq priority_queue<int>
 #define mii map<int,int>
-#define si set<int>
+#define msi multiset<int>
+#define nl "\n"
 
 typedef long long int lli;
 typedef unsigned long long int ulli;
@@ -30,37 +31,80 @@ typedef double ld;
 
 using namespace std;
 
-lli a[100001]={0};
-lli ans[100001]={0};
+void update_tree(int updateLeft,int updateRight,int newValue,int rangeLeft,int rangeRight,int index,int lazy[],vi &segTree)
+{
+	if(updateRight<rangeLeft||rangeRight<updateLeft)
+		return;
+	if(lazy[index]!=0)
+	{
+		segTree[index]+=lazy[index]*(rangeRight-rangeLeft+1);
+		lazy[2*index]+=lazy[index];
+		lazy[2*index+1]+=lazy[index];
+		lazy[index]=0;
+	}
+	if(updateLeft<=rangeLeft&&rangeRight<=updateRight)
+	{
+		segTree[index]+=newValue*(rangeRight-rangeLeft+1);
+		lazy[2*index]+=newValue;
+		lazy[2*index+1]+=newValue;
+		return;
+	}
+	int mid=(rangeLeft+rangeRight)/2;
+	update_tree(updateLeft,updateRight,newValue,rangeLeft,mid,2*index,lazy,segTree);
+	update_tree(updateLeft,updateRight,newValue,mid+1,rangeRight,2*index+1,lazy,segTree);
+	segTree[index]=segTree[2*index]+segTree[2*index+1];
+}
+
+int query_tree(int queryLeft,int queryRight,int rangeLeft,int rangeRight,int index,int lazy[],vi &segTree)
+{
+	if(queryRight<rangeLeft||rangeRight<queryLeft)
+		return 0;
+	if(lazy[index]!=0)
+	{
+		segTree[index]+=lazy[index]*(rangeRight-rangeLeft+1);
+		lazy[2*index]+=lazy[index];
+		lazy[2*index+1]+=lazy[index];
+		lazy[index]=0;
+	}
+	if(queryLeft<=rangeLeft&&rangeRight<=queryRight)
+		return segTree[index];
+	int mid=(rangeLeft+rangeRight)/2;
+	int p1=query_tree(queryLeft,queryRight,rangeLeft,mid,2*index,lazy,segTree);
+	int p2=query_tree(queryLeft,queryRight,mid+1,rangeRight,2*index+1,lazy,segTree);
+	return p1+p2;
+}
+
 int main()
 {
 	fio;
 	/*int t;
-	cin>>t;
+	scanf("%d",&t);
 	while(t--)
 	{
 		int n;
-		cin>>n;
+		scanf("%d",&n);
 	}*/
 	lli n,m,w;
 	cin>>n>>m>>w;
+	int lazy[4*w];
+	vi segTree;
+	REP(i,4*w)	
+	{
+		segTree.pb(0);
+		lazy[i]=0;
+	}
 	while(n--)
 	{
 		int l,r;
 		cin>>l>>r;
-		a[l]++;
-		a[r+1]--;
-	}
-	lli temp=0;
-	REP(i,100001)
-	{
-		temp+=a[i];
-		ans[i]=temp;
+		update_tree(l,r,1,0,w-1,1,lazy,segTree);
 	}
 	while(m--)
 	{
-		lli p;
-		cin>>p;
-		cout<<ans[p]<<endl;
+		int x;
+		cin>>x;
+		int ans=query_tree(x,x,0,w-1,1,lazy,segTree);
+		cout<<ans<<endl;
 	}
+	return 0;
 }

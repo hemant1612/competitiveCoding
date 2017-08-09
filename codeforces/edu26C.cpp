@@ -37,34 +37,56 @@ typedef double ld;
 
 using namespace std;
 
-int isNumber(string n)
-{
-	REP(i,len(n))
-	{
-		if(isalpha(n[i])) return 0;
-	}
-	return 1;
-}
-
 int main()
 {
 	fio;
-	int t;
+	/*int t;
 	cin>>t;
 	while(t--)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		int n;
+		cin>>n;
+	}*/
+	int n,a,b;
+	cin>>n>>a>>b;
+	int A=a;
+	int B=b;
+	a=min(A,B);
+	b=max(A,B);
+	vector<ii> v;
+	REP(i,n)
+	{
+		int x,y;
+		cin>>x>>y;
+		if(max(x,y)>b)
+			continue;
+		v.pb(mp(min(x,y),max(x,y)));
 	}
-
+	sortv(v);
+	ii ans1={0,0};
+	ii ans2={0,0};
+	ii ans={0,0};
+	int maximum=0;
+	FORD(i,v.sz()-1,0)
+	{
+		int x=v[i].fi;
+		int y=v[i].se;
+		 ans={0,0};
+		FORD(j,i-1,0)
+		{
+			int X=v[j].fi;
+			int Y=v[j].se;
+			if((X<=a-x&&Y<=b)||(X<=b&&Y<=a-x)||(X<=a&&Y<=b-y)||(X<=b-y&&Y<=a))
+			{
+				if(ans.fi*ans.se<X*Y)
+					ans={X,Y};
+			}
+		}
+		if(ans.fi!=0&&ans.se!=0)
+		{
+			if(x*y+ans.fi*ans.se>maximum) maximum=x*y+ans.fi*ans.se;
+		}
+	}
+	cout<<maximum<<endl;
 	return 0;
 }

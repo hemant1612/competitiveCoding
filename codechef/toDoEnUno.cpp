@@ -10,8 +10,6 @@
 #define arrayout(a,n) for(int i=0;i<n;i++) cout<<" ";cout<<"\n";
 #define whatIs(x) cout<<#x<<" is "<<x<<endl;
 #define fillA(a,value) memset(a,value,sizeof(a));
-#define len(s) s.length()
-#define reached cout<<"reached "<<endl;
 #define INF INT_MAX //Infinity
 #define mp make_pair
 #define pb push_back
@@ -36,16 +34,7 @@ typedef unsigned long long int ulli;
 typedef double ld;
 
 using namespace std;
-
-int isNumber(string n)
-{
-	REP(i,len(n))
-	{
-		if(isalpha(n[i])) return 0;
-	}
-	return 1;
-}
-
+int m[1000001]={0};
 int main()
 {
 	fio;
@@ -53,17 +42,43 @@ int main()
 	cin>>t;
 	while(t--)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		int n;
+		cin>>n;
+		int a[n];
+		int max=0;
+		fillA(m,0);
+		REP(i,n)
+		{
+			int x;
+			cin>>x;
+			a[i]=x;
+			m[x]+=1;
+			if(x>max) max=x;
+		}
+		int ans=0;
+		FORD(i,max,1)
+		{
+			//whatIs(i);
+			int count=0;
+			int j=i;
+			int f=0;
+			while(j<=max)
+			{
+				if(m[j]>0)
+					count+=m[j];
+				//whatIs(j);
+				//whatIs(count);
+				if(count>1)
+				{
+					f=1;
+					ans=i;
+					break;
+				}
+				j+=i;
+			}
+			if(f) break;
+		}
+		cout<<ans<<endl;
 	}
 
 	return 0;

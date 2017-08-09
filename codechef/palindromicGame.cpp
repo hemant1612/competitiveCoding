@@ -37,15 +37,6 @@ typedef double ld;
 
 using namespace std;
 
-int isNumber(string n)
-{
-	REP(i,len(n))
-	{
-		if(isalpha(n[i])) return 0;
-	}
-	return 1;
-}
-
 int main()
 {
 	fio;
@@ -53,17 +44,66 @@ int main()
 	cin>>t;
 	while(t--)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		string s,t;
+		cin>>s>>t;
+		if(len(s)==1)
+			cout<<"B"<<endl;
+		else
+		{
+			map<char,int> ma;
+			map<char,int> mb;
+			REP(i,len(t))
+			{
+				mb[t.at(i)]++;
+			}
+			vector<char> oddA;
+			REP(i,len(s))
+			{
+				char c=s.at(i);
+				ma[c]++;
+				if(mb[c]==0)
+				{
+					oddA.pb(c);
+				}
+			}
+			//if A is a subset of B
+			if(oddA.sz()==0) cout<<"B"<<endl;
+			else
+			{
+				//A contains atleast one element that B doesnt
+				int f=1;
+				//check if B is a subset of A
+				REP(i,len(t))
+				{
+					if(ma[t.at(i)]>=1)
+					{
+						f=1;
+					}
+					else
+					{
+						f=0;
+						break;
+					}
+				}
+				//if B is a subset of A then A wins
+				if(f)
+				{
+					cout<<"A"<<endl;
+				}
+				else
+				{
+					//Both B and A contain odd elements now
+					//If A contains an odd element with a map of >=2 then he/she wins
+					int two=0;
+					REP(i,oddA.sz())
+					{
+						if(ma[oddA[i]]>=2) two=1;
+					}
+					if(two) cout<<"A"<<endl;
+					else cout<<"B"<<endl;
+				}
+			}
+		}
 	}
 
 	return 0;

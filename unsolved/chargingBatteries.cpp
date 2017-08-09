@@ -37,34 +37,54 @@ typedef double ld;
 
 using namespace std;
 
-int isNumber(string n)
-{
-	REP(i,len(n))
-	{
-		if(isalpha(n[i])) return 0;
-	}
-	return 1;
-}
-
 int main()
 {
 	fio;
-	int t;
-	cin>>t;
-	while(t--)
+	int n,m,k;
+	cin>>n>>m>>k;
+	vii v;
+	int a[m][2];
+	vii v1;
+	for(int i=0;i<m;i++)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		int x,y;
+		cin>>x>>y;
+		if(x==0&&y==0)
+			v1.pb(mp(0,0));
+		else
+			v.pb(mp(x,y));
 	}
-
+	sortv(v);
+	for(int i=0;i<v.sz();i++)
+	{
+		if(v[i].se==0)
+		{
+			v1.pb(mp(v[i].fi,v[i].se));
+		}
+	}
+	for(int i=0;i<v.sz();i++)
+	{
+		if(v[i].fi==n)
+		{
+			v1.pb(mp(v[i].fi,v[i].se));
+		}
+	}
+	FORD(i,v.sz()-1,0)
+	{
+		if(v[i].se==n)
+		{
+			v1.pb(mp(v[i].fi,v[i].se));
+		}
+	}
+	FORD(i,v.sz()-1,0)
+	{
+		if(v[i].fi==0)
+		{
+			v1.pb(mp(v[i].fi,v[i].se));
+		}
+	}
+	reached
+	cout<<v1.sz()<<endl;
+	REP(i,v1.sz()) cout<<v1[i].fi<<" "<<v1[i].se<<endl;
 	return 0;
 }

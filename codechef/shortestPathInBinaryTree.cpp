@@ -8,10 +8,6 @@
 #define sorta(a,n) sort(a,a+n);
 #define arrayin(a,n) for(int i=0;i<n;i++) cin>>a[i];
 #define arrayout(a,n) for(int i=0;i<n;i++) cout<<" ";cout<<"\n";
-#define whatIs(x) cout<<#x<<" is "<<x<<endl;
-#define fillA(a,value) memset(a,value,sizeof(a));
-#define len(s) s.length()
-#define reached cout<<"reached "<<endl;
 #define INF INT_MAX //Infinity
 #define mp make_pair
 #define pb push_back
@@ -28,23 +24,12 @@
 #define mii map<int,int>
 #define msi multiset<int>
 #define nl "\n"
-#define sii set<int,int>
-#define sz size
 
 typedef long long int lli;
 typedef unsigned long long int ulli;
 typedef double ld;
 
 using namespace std;
-
-int isNumber(string n)
-{
-	REP(i,len(n))
-	{
-		if(isalpha(n[i])) return 0;
-	}
-	return 1;
-}
 
 int main()
 {
@@ -53,17 +38,25 @@ int main()
 	cin>>t;
 	while(t--)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		lli a,b;
+		cin>>a>>b;
+		lli counter1=0,counter2=0;
+		while(a!=1||b!=1)
+		{
+			if(a==b)
+				break;
+			else if(a>b)
+			{
+				a/=2;
+				counter1++;
+			}
+			else if(b>a)
+			{
+				b/=2;
+				counter2++;
+			}
+		}
+		cout<<counter2+counter1<<endl;
 	}
 
 	return 0;

@@ -10,7 +10,6 @@
 #define arrayout(a,n) for(int i=0;i<n;i++) cout<<" ";cout<<"\n";
 #define whatIs(x) cout<<#x<<" is "<<x<<endl;
 #define fillA(a,value) memset(a,value,sizeof(a));
-#define len(s) s.length()
 #define reached cout<<"reached "<<endl;
 #define INF INT_MAX //Infinity
 #define mp make_pair
@@ -37,34 +36,49 @@ typedef double ld;
 
 using namespace std;
 
-int isNumber(string n)
-{
-	REP(i,len(n))
-	{
-		if(isalpha(n[i])) return 0;
-	}
-	return 1;
-}
-
 int main()
 {
 	fio;
-	int t;
+	/*int t;
 	cin>>t;
 	while(t--)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		int n;
+		cin>>n;
+	}*/
+	int n;
+	cin>>n;
+	vi left,right;
+	REP(i,n)
+	{
+		int s;
+		char p;
+		cin>>s>>p;
+		if(p=='L')
+			left.pb(s);
+		else right.pb(s);
 	}
-
+	int counter=0;
+	sortv(left);
+	sortv(right);
+	for(int i=0,j=0;i<left.sz()&&j<right.sz();)
+	{
+		if(left[i]==right[j])
+		{
+			//cout<<left[i]<<endl;
+			counter++;
+			i++;
+			j++;
+		}
+		else if(left[i]>right[j])
+		{
+			j++;
+		}
+		else if(left[i]<right[j])
+		{
+			i++;
+		}
+	}
+	cout<<counter<<endl;
 	return 0;
 }

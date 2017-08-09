@@ -8,10 +8,6 @@
 #define sorta(a,n) sort(a,a+n);
 #define arrayin(a,n) for(int i=0;i<n;i++) cin>>a[i];
 #define arrayout(a,n) for(int i=0;i<n;i++) cout<<" ";cout<<"\n";
-#define whatIs(x) cout<<#x<<" is "<<x<<endl;
-#define fillA(a,value) memset(a,value,sizeof(a));
-#define len(s) s.length()
-#define reached cout<<"reached "<<endl;
 #define INF INT_MAX //Infinity
 #define mp make_pair
 #define pb push_back
@@ -31,19 +27,48 @@
 #define sii set<int,int>
 #define sz size
 
+#define MAXN 1000
+#define LN 10
+
 typedef long long int lli;
 typedef unsigned long long int ulli;
 typedef double ld;
 
 using namespace std;
 
-int isNumber(string n)
+vector<lli> g[MAXN];
+lli pa[LN][MAXN];
+lli depth[MAXN];
+
+void dfs(lli v,lli parent,lli d)
 {
-	REP(i,len(n))
+	depth[v]=d;
+	pa[0][v]=parent;
+	REP(i,g[v].sz())
 	{
-		if(isalpha(n[i])) return 0;
+		if(depth[g[v][i]]==-1)
+			dfs(g[v][i],v,d+1);
 	}
-	return 1;
+}
+
+int LCA(int u,int v)
+{
+	if(depth[u]<depth[v]) swap(u,v);
+	for(int i=LN;i>=0;i--)
+	{
+		if(depth[u]-(1<<i)>=depth[v])
+			u=pa[i][u];
+	}
+	if(u==v) return u;
+	for(int i=LN;i>=0;i--)
+	{
+		if(pa[i][u]!=-1&&pa[i][u]!=pa[i][v])
+		{
+			u=pa[i][u];
+			v=pa[i][v];
+		}
+	}
+	return pa[0][u];
 }
 
 int main()
@@ -53,17 +78,30 @@ int main()
 	cin>>t;
 	while(t--)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		REP(i,MAXN) g[i].clear();
+		int n;
+		cin>>n;
+		FOR(i,1,n)
+		{
+			int x;
+			cin>>x;
+			REP(j,x)
+			{
+				int node;
+				cin>>node;
+				g[i-1].pb(node-1);
+			}
+		}
+		int q;
+		cin>>q;
+		cout<<"Case 1:"<<endl;
+		while(q--)
+		{
+			int u,v;
+			cin>>u>>v;
+			u--,v--;
+			cout<<LCA(u,v)+1<<endl;
+		}
 	}
 
 	return 0;

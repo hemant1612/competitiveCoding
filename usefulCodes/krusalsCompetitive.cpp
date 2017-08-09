@@ -37,34 +37,78 @@ typedef double ld;
 
 using namespace std;
 
-int isNumber(string n)
+const int MAX=1e4+5; //max=no of edges
+int id[MAX],nodes,edges; 
+pair<lli,ii> p[MAX];
+
+void initialize()
 {
-	REP(i,len(n))
+	REP(i,MAX) id[i]=i;
+}
+
+int root(int x)
+{
+	while(id[x]!=x)
 	{
-		if(isalpha(n[i])) return 0;
+		id[x]=id[id[x]];
+		x=id[x];
 	}
-	return 1;
+	return x;
+}
+
+void unionOp(int x,int y)
+{
+	int p=root(x);
+	int q=root(y);
+	id[p]=id[q];
+}
+
+lli kruskals(pair<lli,ii>p[])
+{
+	int x,y;
+	lli cost,minimumCost=0;
+	REP(i,edges)
+	{
+		//we select the edges one by one from the beginning.
+		x=p[i].se.fi;
+		y=p[i].se.se;
+		cost=p[i].fi;
+		//if there are no cycles then add it to the graph and join the two groups
+		if(root(x)!=root(y))
+		{
+			minimumCost+=cost;
+			unionOp(x,y);
+		}
+	}
+	return minimumCost;
 }
 
 int main()
 {
 	fio;
-	int t;
+	/*int t;
 	cin>>t;
 	while(t--)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		int n;
+		cin>>n;
+	}*/
+	
+	/*
+
+	int x,y;
+	lli weight,cost,minimumCost;
+	initialize();
+	cin>>nodes>>edges;
+	for(int i=0;i<edges;i++)
+	{
+		cin>>x>>y>>weight;
+		p[i]=mp(weight,mp(x,y));
 	}
+	sort(p,p+edges);
+	minimumCost=kruskals(p);	
+
+	*/
 
 	return 0;
 }

@@ -37,34 +37,45 @@ typedef double ld;
 
 using namespace std;
 
-int isNumber(string n)
+map<string,lli> m;
+
+lli countSeq(string s)
 {
-	REP(i,len(n))
+	//whatIs(s)
+	if(s[0]=='0') return 0;
+	if(len(s)==1) return 1;
+	if(len(s)==2)
 	{
-		if(isalpha(n[i])) return 0;
+		if((s.at(0)-'0')*10+(s.at(1)-'0')<=26)
+		{
+			if(s[len(s)-1]=='0') return 1;
+			else return 2;
+		}
+		else
+		{
+			if(s[len(s)-1]=='0') return 0;
+			else return 1;
+		}
 	}
-	return 1;
+	if(m[s]!=0) return m[s];
+	if((s.at(0)-'0')*10+(s.at(1)-'0')<=26)
+	{
+		m[s]=countSeq(s.substr(1,len(s)))+countSeq(s.substr(2,len(s)));
+	}
+	else m[s]=countSeq(s.substr(1,len(s)));
+	//cout<<"s is "<<s<<" ans m[s] is "<<m[s]<<endl;
+	return m[s];
 }
 
 int main()
 {
 	fio;
-	int t;
-	cin>>t;
-	while(t--)
+	while(1)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		string s;
+		cin>>s;
+		if(s[0]!='0') cout<<countSeq(s)<<endl;
+		else break;
 	}
-
 	return 0;
 }

@@ -37,34 +37,40 @@ typedef double ld;
 
 using namespace std;
 
-int isNumber(string n)
-{
-	REP(i,len(n))
-	{
-		if(isalpha(n[i])) return 0;
-	}
-	return 1;
-}
-
 int main()
 {
 	fio;
-	int t;
+	/*int t;
 	cin>>t;
 	while(t--)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		int n;
+		cin>>n;
+	}*/
+	int n;
+	cin>>n;
+	map<lli,int> m;
+	lli a[n];
+	REP(i,n)
+	{
+		lli x;
+		cin>>x;
+		if(i==0)
+		{
+			m[x]=n;
+			a[0]=x;
+		}
+		m[x]=i;
+		a[i]=x;
 	}
-
+	lli ans=0;
+	sorta(a,n);
+	REP(i,n-1)
+	{
+		lli p1=abs(m[a[i]]-m[a[i+1]]);
+		lli p2=n-p1;
+		ans+=min(p1,p2);
+	}
+	cout<<ans<<endl;
 	return 0;
 }

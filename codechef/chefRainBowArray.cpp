@@ -1,5 +1,5 @@
 #include <bits/stdc++.h>
-
+ 
 #define fio ios_base::sync_with_stdio(false); cin.tie(NULL);
 #define REP(i,n) for(int i=0;i<(n);i++)
 #define FOR(i,a,b) for(int i=(a);i<=(b);i++)
@@ -30,22 +30,13 @@
 #define nl "\n"
 #define sii set<int,int>
 #define sz size
-
+ 
 typedef long long int lli;
 typedef unsigned long long int ulli;
 typedef double ld;
-
+ 
 using namespace std;
-
-int isNumber(string n)
-{
-	REP(i,len(n))
-	{
-		if(isalpha(n[i])) return 0;
-	}
-	return 1;
-}
-
+ 
 int main()
 {
 	fio;
@@ -53,18 +44,77 @@ int main()
 	cin>>t;
 	while(t--)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		int n;
+		cin>>n;
+		int a[n];
+		REP(i,n) cin>>a[i];
+		int i=0,j=n-1;
+		int f=1,previous=1;
+		int one=0,two=0,three=0,four=0,five=0,six=0,seven=0;
+		while(i<=j)
+		{
+			if(a[i]!=a[j])
+			{
+				f=0;
+				break;
+			}
+			else
+			{
+				if(a[i]>7)
+				{
+					f=0;
+					break;
+				}
+				if(i==0)
+				{
+					if(a[i]!=1)
+					{
+						f=0;
+						break;
+					}
+					else
+					{
+						one++;
+					}
+				}
+				else
+				{
+					if(a[i]==previous||a[i]==(previous+1))
+					{
+						previous=a[i];
+						if(a[i]==1)
+							one++;
+						else if(a[i]==2)
+							two++;
+						else if(a[i]==3)
+							three++;
+						else if(a[i]==4)
+							four++;
+						else if(a[i]==5)
+							five++;
+						else if(a[i]==6)
+							six++;
+						else if(a[i]==7)
+							seven++;
+					}
+					else
+					{
+						f=0;
+						break;
+					}
+				}
+			}
+			i++;
+			j--;
+		}
+		if(f==0) cout<<"no"<<endl;
+		else
+		{
+			if(one==0||two==0||three==0||four==0||five==0||six==0||seven==0)
+				cout<<"no"<<endl;
+			else cout<<"yes"<<endl;
+		}
 	}
-
+ 
 	return 0;
-}
+} 

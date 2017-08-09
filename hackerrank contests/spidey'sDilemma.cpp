@@ -37,13 +37,20 @@ typedef double ld;
 
 using namespace std;
 
-int isNumber(string n)
+int knapsack(int v[],int weight[],int n,int W)
 {
-	REP(i,len(n))
+	int ans[n+1][W+1];
+	FOR(w,0,W) ans[0][w]=0;
+	FOR(i,1,n)
 	{
-		if(isalpha(n[i])) return 0;
+		FOR(w,0,W)
+		{
+			if(weight[i-1]<=w)
+				ans[i][w]=max(ans[i-1][w],v[i-1]+ans[i-1][w-weight[i-1]]);
+			else ans[i][w]=ans[i-1][w];
+		}
 	}
-	return 1;
+	return ans[n][W];
 }
 
 int main()
@@ -53,17 +60,12 @@ int main()
 	cin>>t;
 	while(t--)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		int n,W;
+		cin>>n>>W;
+		int v[n],weight[n];
+		REP(i,n) cin>>weight[i];
+		REP(i,n) cin>>v[i];
+		cout<<knapsack(v,weight,n,W)<<endl;
 	}
 
 	return 0;

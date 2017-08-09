@@ -8,10 +8,6 @@
 #define sorta(a,n) sort(a,a+n);
 #define arrayin(a,n) for(int i=0;i<n;i++) cin>>a[i];
 #define arrayout(a,n) for(int i=0;i<n;i++) cout<<" ";cout<<"\n";
-#define whatIs(x) cout<<#x<<" is "<<x<<endl;
-#define fillA(a,value) memset(a,value,sizeof(a));
-#define len(s) s.length()
-#define reached cout<<"reached "<<endl;
 #define INF INT_MAX //Infinity
 #define mp make_pair
 #define pb push_back
@@ -26,45 +22,57 @@
 #define viii vector<tuple<int,int,int>>
 #define prq priority_queue<int>
 #define mii map<int,int>
-#define msi multiset<int>
-#define nl "\n"
-#define sii set<int,int>
-#define sz size
+#define si set<int>
 
 typedef long long int lli;
 typedef unsigned long long int ulli;
 typedef double ld;
 
 using namespace std;
-
-int isNumber(string n)
-{
-	REP(i,len(n))
-	{
-		if(isalpha(n[i])) return 0;
-	}
-	return 1;
-}
-
 int main()
 {
 	fio;
-	int t;
-	cin>>t;
-	while(t--)
+	int n;
+	cin>>n;
+	int k=2*n;
+	vi v;
+	int f=0;
+	int curr=1;
+	prq pq;
+	int ans=0;
+	while(k--)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		string s;
+		cin>>s;
+		if(s[0]=='a')
+		{
+			int x;
+			cin>>x;
+			v.pb(x);
+			f=1;
+		}
+		else
+		{
+			if(v.back()==curr)
+			{
+				v.pop_back();
+			}
+			else if(v.size()&&v.back()!=curr)
+			{
+				ans++;
+				REP(i,v.size())
+				{
+					pq.push(v[i]);
+				}
+				v.clear();
+			}
+			else if(v.size()==0)
+			{
+				pq.pop();
+			}
+			curr++;
+			f=0;
+		}
 	}
-
-	return 0;
+	cout<<ans<<endl;
 }

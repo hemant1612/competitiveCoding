@@ -10,7 +10,6 @@
 #define arrayout(a,n) for(int i=0;i<n;i++) cout<<" ";cout<<"\n";
 #define whatIs(x) cout<<#x<<" is "<<x<<endl;
 #define fillA(a,value) memset(a,value,sizeof(a));
-#define len(s) s.length()
 #define reached cout<<"reached "<<endl;
 #define INF INT_MAX //Infinity
 #define mp make_pair
@@ -37,34 +36,19 @@ typedef double ld;
 
 using namespace std;
 
-int isNumber(string n)
-{
-	REP(i,len(n))
-	{
-		if(isalpha(n[i])) return 0;
-	}
-	return 1;
-}
-
 int main()
 {
 	fio;
-	int t;
+	/*int t;
 	cin>>t;
 	while(t--)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
-	}
-
+		int n;
+		cin>>n;
+	}*/
+	lli a,s,k,x,y;
+	cin>>a>>s>>k>>x>>y;
+	if((s+y*k-a)%(x+y)==0) cout<<(s+y*k-a)/(x+y)<<endl;
+	else cout<<"-1"<<endl;
 	return 0;
 }

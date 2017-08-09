@@ -8,10 +8,6 @@
 #define sorta(a,n) sort(a,a+n);
 #define arrayin(a,n) for(int i=0;i<n;i++) cin>>a[i];
 #define arrayout(a,n) for(int i=0;i<n;i++) cout<<" ";cout<<"\n";
-#define whatIs(x) cout<<#x<<" is "<<x<<endl;
-#define fillA(a,value) memset(a,value,sizeof(a));
-#define len(s) s.length()
-#define reached cout<<"reached "<<endl;
 #define INF INT_MAX //Infinity
 #define mp make_pair
 #define pb push_back
@@ -29,7 +25,6 @@
 #define msi multiset<int>
 #define nl "\n"
 #define sii set<int,int>
-#define sz size
 
 typedef long long int lli;
 typedef unsigned long long int ulli;
@@ -37,34 +32,62 @@ typedef double ld;
 
 using namespace std;
 
-int isNumber(string n)
-{
-	REP(i,len(n))
-	{
-		if(isalpha(n[i])) return 0;
-	}
-	return 1;
-}
-
 int main()
 {
 	fio;
-	int t;
+	/*int t;
 	cin>>t;
 	while(t--)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		int n;
+		cin>>n;
+	}*/
+	int n;
+	cin>>n;
+	vi v[100001];
+	int a[n];
+	REP(i,n)
+	{
+		int x;
+		cin>>x;
+		v[x].pb(i);
 	}
-
+	vii v1;
+	//sortv(v)
+	REP(i,100001)
+	{
+		if(v[i].size()!=0)
+		{
+			int min=INF,max=0;
+			REP(j,v[i].size())
+			{
+				if(v[i][j]<min) min=v[i][j];
+				if(v[i][j]>max) max=v[i][j];
+			}
+			v1.pb(mp(min,max));
+		}
+	}
+	FOR(i,1,v1.size())
+	{
+		if(v1[i].fi<=v1[i-1].se&&v1[i].fi>=v1[i-1].fi)
+		{
+			cout<<"i "<<i<<endl;
+			int l1=v1[i-1].fi;
+			int l2=v1[i-1].se;
+			int l3=v1[i].fi;
+			int l4=v1[i].se;
+			v1.erase(v1.begin()+i-1);
+			cout<<"v1"<<endl;
+			REP(i,v1.size()) cout<<v1[i].fi<<" "<<v1[i].se<<endl;
+			v1.erase(v1.begin()+i-1);
+			cout<<"v2"<<endl;
+			REP(i,v1.size()) cout<<v1[i].fi<<" "<<v1[i].se<<endl;
+			i--;
+			v1.insert(v1.begin()+i,{l1,max(l2,l4)});
+			cout<<"v3"<<endl;
+			REP(i,v1.size()) cout<<v1[i].fi<<" "<<v1[i].se<<endl;
+		}
+	}
+	REP(i,v1.size()) cout<<v1[i].fi<<" "<<v1[i].se<<endl;
 	return 0;
 }

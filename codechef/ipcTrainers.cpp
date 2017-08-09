@@ -8,10 +8,6 @@
 #define sorta(a,n) sort(a,a+n);
 #define arrayin(a,n) for(int i=0;i<n;i++) cin>>a[i];
 #define arrayout(a,n) for(int i=0;i<n;i++) cout<<" ";cout<<"\n";
-#define whatIs(x) cout<<#x<<" is "<<x<<endl;
-#define fillA(a,value) memset(a,value,sizeof(a));
-#define len(s) s.length()
-#define reached cout<<"reached "<<endl;
 #define INF INT_MAX //Infinity
 #define mp make_pair
 #define pb push_back
@@ -29,22 +25,12 @@
 #define msi multiset<int>
 #define nl "\n"
 #define sii set<int,int>
-#define sz size
 
 typedef long long int lli;
 typedef unsigned long long int ulli;
 typedef double ld;
 
 using namespace std;
-
-int isNumber(string n)
-{
-	REP(i,len(n))
-	{
-		if(isalpha(n[i])) return 0;
-	}
-	return 1;
-}
 
 int main()
 {
@@ -53,18 +39,40 @@ int main()
 	cin>>t;
 	while(t--)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		int n,d;
+		cin>>n>>d;
+		vector<pair<int,int>> mark[d+1];
+		REP(i,n)
+		{
+			int day,tenure,sad;
+			cin>>day>>tenure>>sad;
+			mark[day].pb(mp(sad,tenure));
+		}
+		priority_queue<pair<int,int>> pq;
+		FOR(i,1,d)
+		{
+			//cout<<"i "<<i<<endl;
+			REP(j,mark[i].size())
+			{
+				//cout<<"pushed "<<mark[i][j].fi<<" "<<mark[i][j].se<<endl;
+				pq.push(mp(mark[i][j].fi,mark[i][j].se));
+			}
+			if(pq.size()>0)
+			{
+				ii p1=pq.top();
+				pq.pop();
+				if(p1.se>1)
+					pq.push(mp(p1.fi,p1.se-1));
+			}
+		}
+		lli sum=0;
+		while(pq.size()>0)
+		{
+			ii p1=pq.top();
+			sum+=(lli)(((lli)p1.fi)*((lli)p1.se));
+			pq.pop();
+		}
+		cout<<sum<<endl;
 	}
-
 	return 0;
 }

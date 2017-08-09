@@ -8,10 +8,6 @@
 #define sorta(a,n) sort(a,a+n);
 #define arrayin(a,n) for(int i=0;i<n;i++) cin>>a[i];
 #define arrayout(a,n) for(int i=0;i<n;i++) cout<<" ";cout<<"\n";
-#define whatIs(x) cout<<#x<<" is "<<x<<endl;
-#define fillA(a,value) memset(a,value,sizeof(a));
-#define len(s) s.length()
-#define reached cout<<"reached "<<endl;
 #define INF INT_MAX //Infinity
 #define mp make_pair
 #define pb push_back
@@ -37,34 +33,47 @@ typedef double ld;
 
 using namespace std;
 
-int isNumber(string n)
+bool lucky(int n)
 {
-	REP(i,len(n))
-	{
-		if(isalpha(n[i])) return 0;
-	}
-	return 1;
+	//cout<<"check "<<n<<endl;
+	string s1=to_string(n/1000);
+	string s2=to_string(n%1000);
+	if(s2.length()==0)
+		s2="000";
+	else if(s2.length()==1)
+		s2="00"+s2;
+	else if(s2.length()==2)
+		s2="0"+s2;
+	int sum1=0,sum2=0;
+	REP(i,3)
+		sum1+=s1.at(i)-'0';
+	REP(i,3)
+		sum2+=s2.at(i)-'0';
+	if(sum1==sum2) return true;
+	else return false;
 }
 
 int main()
 {
 	fio;
-	int t;
+	/*int t;
 	cin>>t;
 	while(t--)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		int n;
+		cin>>n;
+	}*/
+	int n;
+	cin>>n;
+	n++;
+	while(1)
+	{
+		if(lucky(n))
+		{
+			cout<<n<<endl;
+			break;
+		}
+		else n++;
 	}
-
 	return 0;
 }

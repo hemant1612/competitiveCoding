@@ -37,34 +37,39 @@ typedef double ld;
 
 using namespace std;
 
-int isNumber(string n)
-{
-	REP(i,len(n))
-	{
-		if(isalpha(n[i])) return 0;
-	}
-	return 1;
-}
-
 int main()
 {
 	fio;
-	int t;
+	/*int t;
 	cin>>t;
 	while(t--)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		int n;
+		cin>>n;
+	}*/
+	string s;
+	cin>>s;
+	char previous='a';
+	int ans=0;
+	REP(i,len(s))
+	{
+		char current=s.at(i);
+		if(current==previous)
+			continue;
+		else if(current>previous)
+		{
+			int steps1=int(current)-int(previous);
+			int steps2=int(previous)-65+1+90-int(current);
+			ans+=min(steps1,steps2);
+		}
+		else
+		{
+			int steps1=int(previous)-int(current);
+			int steps2=90-int(previous)+1+int(current)-65;
+			ans+=min(steps1,steps2);
+		}
+		previous=current;
 	}
-
+	cout<<ans<<endl;
 	return 0;
 }

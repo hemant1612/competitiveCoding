@@ -32,39 +32,44 @@
 #define sz size
 
 typedef long long int lli;
+typedef long long ll; 
 typedef unsigned long long int ulli;
 typedef double ld;
 
 using namespace std;
-
-int isNumber(string n)
+map<ll,ll> m;
+ll calculate(ll n)
 {
-	REP(i,len(n))
+	ll a=n/2,b=n/3,c=n/4;
+	if(a<=1&&b<=1&&c<=1)
 	{
-		if(isalpha(n[i])) return 0;
+		m[n]=a+b+c;
+		return a+b+c;
 	}
-	return 1;
+	if(m[a]==0)
+		m[a]=max(a,calculate(a));
+	if(m[b]==0)
+		m[b]=max(b,calculate(b));
+	if(m[c]==0)
+		m[c]=max(c,calculate(c));
+	m[n]=m[a]+m[b]+m[c];
+	return m[n];
 }
 
 int main()
 {
 	fio;
-	int t;
+	/*int t;
 	cin>>t;
 	while(t--)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		int n;
+		cin>>n;
+	}*/
+	ll x;
+	while(scanf("%lld",&x)==1)
+	{
+		printf("%lld\n",max(x,calculate(x)) );
 	}
-
 	return 0;
 }

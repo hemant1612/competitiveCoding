@@ -37,15 +37,6 @@ typedef double ld;
 
 using namespace std;
 
-int isNumber(string n)
-{
-	REP(i,len(n))
-	{
-		if(isalpha(n[i])) return 0;
-	}
-	return 1;
-}
-
 int main()
 {
 	fio;
@@ -53,17 +44,58 @@ int main()
 	cin>>t;
 	while(t--)
 	{
-		string a,b,c;
-		char plus,equals;
-		cin>>a>>plus>>b>>equals>>c;
-		lli n1=-1,n2=-1,n3=-1;
-		if(isNumber(a)) n1=atol(a.c_str());
-		if(isNumber(b)) n2=atol(b.c_str());
-		if(isNumber(c)) n3=atol(c.c_str());
-		if(n1==-1) n1=n3-n2;
-		if(n2==-1) n2=n3-n1;
-		if(n3==-1) n3=n1+n2;
-		cout<<n1<<" + "<<n2<<" = "<<n3<<endl;
+		int n,d;
+		cin>>n>>d;
+		lli a[n];
+		lli sum=0;
+		REP(i,n)
+		{
+			lli x;
+			cin>>x;
+			a[i]=x;
+			sum+=x;
+		}
+		lli ans=0;
+		int f=1;
+		if(sum%n==0)
+		{
+			lli mean=sum/n;
+			REP(i,n)
+			{
+				if(i+d<n)
+				{
+					lli diff=a[i]-mean;
+					a[i]=mean;
+					a[i+d]=diff+a[i+d];
+					ans+=abs(diff);
+				}
+				else
+				{
+					if(a[i]!=mean)
+					{
+						f=0;
+						break;
+					}
+				}
+			}
+		}
+		else
+		{
+			f=0;
+		}
+		REP(i,n-1)
+		{
+			if(a[i]!=a[i+1])
+			{
+				f=0;
+				break;
+			}
+		}
+		//whatIs(f)
+		if(f)
+			cout<<ans<<endl;
+		else
+			cout<<"-1"<<endl;
 	}
 
 	return 0;
