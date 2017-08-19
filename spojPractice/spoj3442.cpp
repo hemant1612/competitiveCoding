@@ -1,30 +1,43 @@
-#include <iostream>
+#include <bits/stdc++.h>
+
+#define fio ios_base::sync_with_stdio(false); cin.tie(NULL);
+#define REP(i,n) for(int i=0;i<(n);i++)
+#define FOR(i,a,b) for(int i=(a);i<=(b);i++)
+#define FORD(i,a,b) for(int i=(a);i>=(b);i--)
+
+typedef long long int lli;
+typedef unsigned long long int ulli;
+typedef double ld;
+
 using namespace std;
+
 int main()
 {
+	fio;
 	int t;
 	cin>>t;
-	for(int q=1;q<=t;q++)
+	while(t--)
 	{
-		long long int a,b;
+		int a;
+		lli b;
 		cin>>a>>b;
-		a=a%10;
-		//cout<<a<<" a"<<endl;b==
-		if(b!=0)
-		{
-			b=b%4;
-			//cout<<b<<" b"<<endl;
-			if(b==0)
-				b=4;
-			int ans=1;
-			for(int i=1;i<=b;i++)
-				ans=ans*a;
-			cout<<ans%10<<endl;
-		}
+		if(a==0) cout<<"0"<<endl;
 		else
 		{
-			cout<<"1\n";
+			if(b==0) cout<<"1"<<endl;
+			else
+			{
+				b=b%4;
+				if(b==0) b=4;
+				lli ans=1;
+				FOR(i,1,b)
+				{
+					ans*=a;
+				}
+				cout<<ans%10<<endl;
+			}
 		}
-
 	}
+
+	return 0;
 }
